@@ -9,7 +9,7 @@ PokeAPI from :https://pokeapi.co/
 -Tkinter<br>
 -API data storing<br>
 -API data retrieving<br>
--Image IOBytes<br>
+-Image BytesIO<br>
 
 
 Program Description:<br>
