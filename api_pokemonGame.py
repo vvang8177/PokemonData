@@ -48,13 +48,45 @@ def newPokemon():
     canvas1.after(1000, newPokemon)
 
 
+def newShiny():
+
+
+    pokemonNumber = random.randint(1,151)
+    convertedNum = str(pokemonNumber)
+
+    pokemonURL_NUMBER = pokemon_API + convertedNum
+
+    pokemon = requests.get(pokemonURL_NUMBER).json()
+    pokemonImage = pokemon['sprites']['front_shiny']
+    pokemonName = pokemon['name'].capitalize() 
+
+    myPokemonName = Label(canvas1, text=pokemonName)
+    myPokemonName.pack(pady=20)
+
+    response = requests.get(pokemonImage)
+    img_data = response.content
+    img = ImageTk.PhotoImage(Image.open(io.BytesIO(img_data)))
+    panel = Label(canvas1, image=img)
+    panel.image = img
+    panel.pack(padx=100, pady=10)
+    canvas1.after(1000, panel.destroy)
+    canvas1.after(1000, myPokemonName.destroy)
+    canvas1.after(1000, newShiny)
+    
+
+
 root = Tk()
 root.eval('tk::PlaceWindow . center')
 
-myButton = Button(root, text="Start", 
+myButton = Button(root, text="Spawn Pokemon", 
                         width=20, 
                         command=lambda:newPokemon())
 myButton.pack()
+
+shinyButton = Button(root, text="Spawn Shiny", 
+                            width=20,
+                            command=lambda:newShiny())
+shinyButton.pack()
 
 exitButton = Button(root, text="Close", 
                         width=20, 
